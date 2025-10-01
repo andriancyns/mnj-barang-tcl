@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Barangs\Schemas;
 
 use App\Models\Gudang;
 use Auth;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
@@ -22,7 +23,7 @@ class BarangForm
                     ->numeric()
                     ->minValue(0)
                     ->default(0),
-                TextInput::make('gudang_id')
+                Select::make('gudang_id')
                     ->label('Gudang')
                     ->options(Gudang::query()->pluck('nama', 'id'))
                     ->required()
