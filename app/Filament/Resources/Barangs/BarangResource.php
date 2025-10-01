@@ -49,7 +49,7 @@ class BarangResource extends Resource
         ];
     }
 
-    public function getEloquentQuery(): Builder
+    public static function getEloquentQuery(): Builder
     {
         $query = parent::getEloquentQuery();
         $user  = Auth::user();
