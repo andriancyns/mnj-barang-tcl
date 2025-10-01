@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\Builder;
 class BarangResource extends Resource
 {
     protected static ?string $model = Barang::class;
-    protected static ?string $navigationLabel = 'Manajemen Barang';
+    protected static ?string $navigationLabel = 'Master Barang';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
