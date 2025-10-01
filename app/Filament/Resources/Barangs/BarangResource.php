@@ -10,11 +10,13 @@ use App\Filament\Resources\Barangs\Schemas\BarangForm;
 use App\Filament\Resources\Barangs\Schemas\BarangInfolist;
 use App\Filament\Resources\Barangs\Tables\BarangsTable;
 use App\Models\Barang;
+use Auth;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class BarangResource extends Resource
 {
@@ -25,6 +27,8 @@ class BarangResource extends Resource
 
     public static function form(Schema $schema): Schema
     {
+        $user = auth()->user();
+        
         return BarangForm::configure($schema);
     }
 
@@ -43,6 +47,17 @@ class BarangResource extends Resource
         return [
             //
         ];
+    }
+
+    public function getEloquentQuery(): Builder
+    {
+        $query = parent::getEloquentQuery();
+        $user  = Auth::user();
+
+        if ($user?->hasRole('admin')) return $query;
+
+        // staff & viewer hanya lihat data gudang-nya
+        return $query->where('gudang_id', $user->gudang_id);
     }
 
     public static function getPages(): array

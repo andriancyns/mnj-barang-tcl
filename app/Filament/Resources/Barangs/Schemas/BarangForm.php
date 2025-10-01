@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\Barangs\Schemas;
 
+use App\Models\Gudang;
+use Auth;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
@@ -18,10 +20,14 @@ class BarangForm
                 TextInput::make('stok')
                     ->required()
                     ->numeric()
+                    ->minValue(0)
                     ->default(0),
                 TextInput::make('gudang_id')
+                    ->label('Gudang')
+                    ->options(Gudang::query()->pluck('nama', 'id'))
                     ->required()
-                    ->numeric(),
-            ]);
+                    ->disabled(fn() => Auth::user()?->hasRole('admin') === false)
+                    ->visible(fn() => Auth::user()?->hasRole('admin')),
+            ])->columns(2);
     }
 }

@@ -18,4 +18,13 @@ class EditBarang extends EditRecord
             DeleteAction::make(),
         ];
     }
+
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        if (!auth()->user()->hasRole('admin')) {
+            // lock ke gudang user
+            $data['gudang_id'] = auth()->user()->gudang_id;
+        }
+        return $data;
+    }
 }
