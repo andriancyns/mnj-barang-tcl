@@ -49,7 +49,7 @@ class BarangResource extends Resource
         ];
     }
 
-    public static function getEloquentQuery(): Builder
+    /* public static function getEloquentQuery(): Builder
     {
         $query = parent::getEloquentQuery();
         $user  = Auth::user();
@@ -58,7 +58,7 @@ class BarangResource extends Resource
 
         // staff & viewer hanya lihat data gudang-nya
         return $query->where('gudang_id', $user->gudang_id);
-    }
+    } */
 
     public static function getPages(): array
     {
