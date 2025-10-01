@@ -47,11 +47,6 @@ class BarangsTable
             ->bulkActions([
                 DeleteBulkAction::make()
                     ->visible(fn() => Auth::user()->hasRole('admin')),
-            ])
-            ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
             ]);
     }
 }
